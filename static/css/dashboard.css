@@ -1,0 +1,78 @@
+.chat-window{
+    min-height: 480px;
+    max-height: 480px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overflow-wrap: break-word;
+    background-color: azure;
+}
+
+.channel{
+    margin: -15px;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+        height: 100%;
+        line-height: 100%;
+    }
+    75% {
+        opacity: 0;
+        height: 100%;
+        line-height: 100%;
+    }
+    100% {
+        opacity: 0;
+        height: 0px;
+        line-height: 0px;
+    }
+}
+
+.hide{
+    float: right;
+}
+
+.message-layout  {
+    float: left;
+    animation-name: hide;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+.message-header{
+    margin: 3px;;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+.message-text{
+    margin:3px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

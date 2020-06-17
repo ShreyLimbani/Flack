@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <title>
+          Flack | 
+      </title>
+
+      <!-- HandleBar URL -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+      <!-- Socket.IO URL -->
+      <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js" integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+      <!-- Font Awesome -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <link href="{{ url_for('static',filename='css/font-awesome.min.css')}}" rel="stylesheet">
+
+      <!-- Bootstrap core CSS -->
+      <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+      <link href="{{ url_for('static',filename='css/mdb.css')}}" rel="stylesheet">
+      <link href="{{ url_for('static',filename='css/style.css')}}" rel="stylesheet">
+      <link href="{{ url_for('static',filename='css/all.css')}}" rel="stylesheet">
+      <!-- Material Design Bootstrap -->
+
+      <!-- Custom CSS -->
+      <link rel="stylesheet" href="{{ url_for('static',filename='css/dashboard.css')}}">
+
+      <script id="new-message" type="text/template">
+        {% raw -%}
+          <div class="alert alert-success message-layout" id="{{ message_id }}" style="margin-top: 2px; padding: 0px; width: 65%;">
+            <div class="row">
+              <div class="col-10">
+                <p class="mb-0 ml-1 message-header" >{{ display_name }}&nbsp;&nbsp;&nbsp; | {{ time }}</p></div>
+              <div class="col-2">
+                <a class="message-delete">
+                  <span class="clearfix d-none d-sm-inline-block" style="font-size:20px; padding:0px;margin:0px;">x</span>
+                </a>
+              </div>
+              <div class="col-12">
+                <hr class="mb-0 mt-0">
+              </div>
+              <div class="col-12">
+                <p  class="message-text" style="font-size:20px;">{{ message_text }}</p>
+              </div>
+          </div>
+          </div>
+        {%- endraw %}
+      </script>
+
+      <script id="channel-list" type="text/template">
+        <li>{% raw -%}
+          <a class="waves-effect channels" id="{{ id }}" style="font-size:large;" >{{ title }}</a>{%- endraw %}
+        </li>
+    </script>
+
+  </head>
+
+  <body class="fixed-sn light-blue-skin">
+    
+    <header>
+      <!-- Sidebar navigation -->
+      <div id="slide-out" class="side-nav sn-bg-4 fixed">
+        <ul class="custom-scrollbar">
+          <!-- Logo -->
+          <li>
+            <div class="logo-wrapper waves-light">
+              <a href="#"><h5></h5></a>
+            </div>
+          </li>
+          <!--/. Logo -->
+          
+          <!-- Side navigation links -->
+          <li>
+            <ul class="collapsible collapsible-accordion">
+              <li><a class="collapsible-header waves-effect arrow-r disabled" ><h3>Channels</h3></a>
+                <ul id="side-nav-channels">            
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <!--/. Side navigation links -->
+        </ul>
+        <div class="sidenav-bg mask-strong"></div>
+      </div>
+      <!--/. Sidebar navigation -->
+      <!-- Navbar -->
+      <nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav">
+        <!-- SideNav slide-out button -->
+        <div class="float-left">
+          <a data-activates="slide-out" class="button-collapse">&#10097;&#10097;&#10097;</a>
+        </div>
+        <!-- Breadcrumb-->
+        <div class="breadcrumb-dn mr-auto">
+          <p><h3 class="ml-2 mr-2">Flack</h3></p>
+        </div>
+        <ul class="nav navbar-nav nav-flex-icons ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" id="logout"><span class="clearfix d-none d-sm-inline-block">Logout</span></a>
+          </li>
+        </ul>
+      </nav>
+      <!-- /.Navbar -->
+    </header>
+    <!--/.Double navigation-->
+  
+    <!--Main Layout-->
+    <main class="channel">
+      <div class="container-fluid">
+        <div class="card" style="height:100%;">
+            <div class="card-header channel-description">
+                <span id="channel_title" style="font-size:large;"></span> | 
+                <span id="channel_description"></span>
+            </div>
+            <div class="card-body chat-window mb-0" id="chat-content">
+            </div>
+            <div class="card-footer text-muted message-box">
+                <form>
+                <div class="form-group row">
+                  <div class="col-10">
+                    <textarea class="form-control" id="new-message-text" rows="2"></textarea>
+                  </div>
+                  <div class="col-2">
+                    <button type="button" class="btn-floating btn-default" id="send-message">➤</button>
+                  </div>
+                </div>
+                </form>
+            </div>
+        </div>
+      </div>
+    </main>
+    <!--Main Layout-->
+
+    <!-- JS Scripts-->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.3.1.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.4.1.min.js')}}"></script>
+
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+    <!-- Custom JS -->
+    <script type="text/javascript" src="{{ url_for('static',filename='js/dashboard.js')}}"></script>
+      
+  </body>
+</html>

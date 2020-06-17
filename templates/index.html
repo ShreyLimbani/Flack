@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Flack
+        </title>
+        <!-- HandleBar URL -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+        
+        <!-- Bootstrap core CSS -->
+        <link href="{{ url_for('static',filename='css/bootstrap.min.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/mdb.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/style.css')}}" rel="stylesheet">
+        <link href="{{ url_for('static',filename='css/all.css')}}" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+        <link rel="stylesheet" href="{{ url_for('static',filename='css/mdb.min.css')}}">
+        
+        <style>
+            .view {
+                background: url("https://mdbootstrap.com/img/Photos/Others/img (42).jpg")no-repeat center center;
+                background-size: cover;
+            }
+            @media (min-width: 768px) {
+                .view {
+                    overflow: visible;
+                    margin-top: -56px;
+                }
+            }
+            .navbar {
+                z-index: 1;
+            }
+            .navbar {
+                background-color: transparent;
+            }
+            .top-nav-collapse {
+                background-color: #4285F4;
+            }
+            @media only screen and (max-width: 768px) {
+                .navbar {
+                    background-color: #4285F4;
+                }
+            }
+
+            html,body,header,.view {
+            height: 100%;
+            }
+
+            .list-group-item-margin{
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+        </style>
+
+        <!-- After login changes -->
+        <script id="logged_in" type="text/template">
+            <li class="nav-item dropdown" id="username">
+                <a class="nav-link dropdown" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+                    {% raw -%}
+                        {{user}} &#9660;
+                    {%- endraw %}
+                </a>
+                <div class="dropdown-menu dropdown" aria-labelledby="navbarDropdownMenuLink-555">
+                        <a class="dropdown-item" id="logout">Logout</a>
+                </div>
+            </li>
+        </script>
+
+        <script id="channel-layout" type="text/template">
+            {% raw -%}
+            <li class="list-group-item list-group-item-info list-group-item-action channel-links" id="{{ id }}">
+                <a>{{title}}</a>
+            </li>
+            {%- endraw %}
+        </script>
+
+    </head>
+
+    <body>
+        <!--Login Modal-->
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="login">
+                <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign in</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="closeLoginModal">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                    <i class="fa fa-user-circle-o prefix grey-text"></i>
+                    <input type="text" id="loginUsername" autofocus class="form-control col-9">
+                    <label for="defaultForm-name">Username</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                    <i class="fa fa-lock prefix grey-text"></i>
+                    <input type="password" id="loginPassword" class="form-control col-9">
+                    <label for="defaultForm-pass">Your password</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" type="submit">Login</button>
+                </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+        <!--Sign Up Modal-->
+        <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="signupModalClose">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-2"></div>
+                        <div class="col-4">
+                            <div class="md-form">
+                                <i class="fa fa-pencil prefix grey-text"></i>
+                                <input type="text" id="registerFirstName" class="form-control">
+                                <label for="orangeForm-name">First name</label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="md-form">
+                                <input type="text" id="registerLastName" class="form-control" >
+                                <label for="orangeForm-name">Last name</label>
+                            </div>
+                        </div>
+                        <div class="col-2"></div>
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="md-form">
+                                <i class="fa fa-user-circle-o prefix grey-text"></i>
+                                <input type="text" id="registerUsername" class="form-control">
+                                <label for="orangeForm-name">Username</label>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="md-form">
+                                <i class="fa fa-envelope-o prefix grey-text"></i>
+                                <input type="email" id="registerEmail" class="form-control">
+                                <label for="orangeForm-email">Your email</label>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                        <div class="col-3"></div>
+                        <div class="col-6">
+                            <div class="md-form">
+                                <i class="fa fa-lock prefix grey-text"></i>
+                                <input type="password" id="registerPassword" class="form-control">
+                                <label for="orangeForm-pass">Your password</label>
+                            </div>
+                        </div>
+                        <div class="col-3"></div>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-deep-orange" id="signupContinue" data-toggle="modal" data-target="#modalDisplayName">Contine</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <!--Display Name Modal-->
+        <div class="modal fade" id="modalDisplayName" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="signup">
+                <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">Display Name</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="displayNameModalClose">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                    <i class="fa fa-pencil prefix grey-text"></i>
+                    <input type="text" id="registerDisplayName" autofocus class="form-control col-9">
+                    <label for="defaultForm-name">Display Name</label>
+                    </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" type="submit">Sign Up</button>
+                </div>
+                </div>
+                </form>
+            </div>
+        </div>
+        
+        <!-- New Channel Modal -->
+        <div class="modal fade" id="modalNewChannel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <form id="newChannel">
+                <div class="modal-content">
+                <div class="modal-header text-center">
+                    <h4 class="modal-title w-100 font-weight-bold">New Channel</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body mx-3">
+                    <div class="md-form mb-5">
+                    <i class="fas fa-envelope prefix grey-text"></i>
+                    <input type="text" id="channelTitle" class="form-control col-9" name="title">
+                    <label for="defaultForm-email">Title</label>
+                    </div>
+
+                    <div class="md-form mb-4">
+                    <i class="fas fa-lock prefix grey-text"></i>
+                    <input type="text" id="channelDesc" class="form-control col-9" name="description">
+                    <label for="defaultForm-pass">Description</label>
+                    </div>
+
+                </div>
+                <div class="modal-footer d-flex justify-content-center">
+                    <button class="btn btn-default" type="submit">Create</button>
+                </div>
+                </div>
+                </form>
+            </div>
+        </div>
+
+
+        <!--Header-->
+        <header>
+
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#" style="font-family: cursive;"><strong>FLACK</strong></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item active">
+                               <a class="nav-link">An online messaging platform in similar spirit to Slack <span class="sr-only">(current)</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto" id="user_details">
+                            <li class="nav-item active">
+                               <a class="nav-link"  data-toggle="modal" data-target="#modalLogin" id="SignIn">Sign In<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link light-blue"  data-toggle="modal" data-target="#modalRegister">Sign Up<span class="sr-only">(current)</span></a>
+                             </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="view intro-2">
+                <div class="full-bg-img">
+                    <div class="mask rgba-indigo-slight flex-center">
+                        <div class="container">
+                            <div class="row justify-content-center" id="index_card">
+                                <div class="col-lg-6 col-md-12 mb-4" >
+    
+                                    <!-- Material form login -->
+                                    <div class="card">
+
+                                        <h3 class="card-header info-color white-text text-center py-4">
+                                        <strong>Sign in to your workspace</strong>
+                                        </h3>
+                                    
+                                        <!--Card content-->
+                                        <div class="card-body px-lg-5 pt-0">
+                                    
+                                        <!-- Form -->
+                                        <form id="join_channel">
+                                            <br/>
+                                            <h5 class="black-text text-center">
+                                                Enter your workspace's <b>Flack URL</b>
+                                            </h5>
+                                            <!-- Channel URL -->
+                                            <div class="md-form">
+                                                <div class="row">
+                                                    <div class="col-2"></div>
+                                                    <div class="col-7">
+                                                        <input type="text" id="channelJoinUrl" class="form-control" style="text-align: right; font-size:large; font-weight: 600;">
+                                                        <label>Company's URL</label>
+                                                    </div>
+                                                    <div class="col-2"><label><h4><b>.flack.com</b></h4></label></div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Continue button -->
+                                            <div class="row">
+                                                <div class="col-3"></div>
+                                                <div class="col-8">
+                                                    <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0 col-8" type="submit">Contine</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- Form -->
+                                    
+                                        </div>
+                                    
+                                    </div>
+                                    <!-- Material form login -->
+                                    <div class="white-text text-center wow fadeInUp">
+                                        <h6><br/>Need to get your group started on Flack?<a style="color: black;" data-toggle="modal" data-target="#modalNewChannel" id="create_channel"> Create a new channel.</a></h6>
+                                    </div>
+  
+                                </div>
+                                <div class="col-lg-1  col-md-12 mb-4"></div>
+                                <div class="col-lg-5  col-md-12 mb-4">
+                                    <ul class="list-group channel-list">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+        </header>
+
+
+        <!-- JS Scripts-->
+        <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.3.1.min.js')}}"></script>
+
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='js/index.js') }} "></script>
+
+    </body>
+</html>
