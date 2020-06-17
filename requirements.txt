@@ -1,5 +1,3 @@
-Flask
-Flask-SocketIO
 aniso8601==8.0.0
 appdirs==1.4.3
 asgiref==3.2.3
