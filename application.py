@@ -128,7 +128,7 @@ def send(message_details):
     channel_id = message_details["channel-id"]
     display_name = message_details["display-name"]
     user_id = message_details["user-id"]
-
+    print("Send Message")
     try:
         new_message = Message(message_text=message_text, channel_id=channel_id, user_id=user_id,message_time=datetime.datetime.now())
         db.session.add(new_message)
