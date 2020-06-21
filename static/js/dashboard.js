@@ -3,7 +3,7 @@ $(document).ready(function() {
     // SideNav Button Initialization
     $(".button-collapse").sideNav();
 })
-var socket = io.connect(location.protocol + '//' + document.domain+ ':55837');
+var socket = io.connect(location.protocol + '//' + document.domain);
 
 const message_template = Handlebars.compile(document.querySelector('#new-message').innerHTML);
 const channel_template = Handlebars.compile(document.querySelector('#channel-list').innerHTML);
