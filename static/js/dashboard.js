@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Send button should send a message
         document.querySelector('#send-message').onclick = () => {
             const message_text = document.querySelector('#new-message-text').value;
-            document.querySelector('#new-message-text').value = "";
             if (message_text === '')
                 return false;
             else
@@ -143,6 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
     socket.on('receive message', message => {
         if (message.success===true){
             if(message.channel_id === localStorage.getItem('channel-id')){
+                document.querySelector('#new-message-text').value = "";
                 const date = new Date();
                 let current_date = (date.getDate()<10?'0':'') + date.getDate()+"-";
                 current_date += (date.getMonth()<10?'0':'') + date.getMonth()+"-" + date.getFullYear();

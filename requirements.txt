@@ -35,7 +35,7 @@ flask-mongoengine==0.9.5
 Flask-OAuthlib==0.9.5
 Flask-RESTful==0.3.8
 Flask-Session==0.3.2
-Flask-SocketIO==4.3.0
+Flask-SocketIO>=4.3.0
 Flask-SQLAlchemy==2.4.1
 Flask-WTF==0.14.3
 get==2019.4.13

@@ -1,6 +1,6 @@
 .chat-window{
-    min-height: 420px;
-    max-height: 420px;
+    min-height: 480px;
+    max-height: 480px;
     overflow-x: hidden;
     overflow-y: auto;
     overflow-wrap: break-word;
@@ -55,10 +55,6 @@
 
 .message-layout  {
     float: left;
-    animation-name: hide;
-    animation-duration: 2s;
-    animation-fill-mode: forwards;
-    animation-play-state: paused;
 }
 
 .message-header{
@@ -71,7 +67,7 @@
 
 .message-text{
     margin:3px;
-    padding-left: 10px;
+    padding-left: 15px;
     padding-right: 10px;
     padding-top: 5px;
     padding-bottom: 5px;
